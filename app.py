@@ -29,8 +29,8 @@ class Generator:
 
 @app.route('/')
 def index():
-    gen = Generator()
-    return render_template('chart.html', values=gen.populationSum, labels=gen.continents)
+    Generator()
+    return 'haeooo'
 
 
 if __name__ == '__main__':
