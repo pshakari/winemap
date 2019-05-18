@@ -26,14 +26,14 @@ class Generator:
 
     def make(self, server, user, dbname, password):
         spark_session = SparkSession.builder.appName('winemap').getOrCreate()
-        populationSum=[200,300,400]
-        continents=['Europe','Africa','Asia']
+        self.populationSum=[200,300,400]
+        self.continents=['Europe','Africa','Asia']
       	#return render_template('chart.html', values=populationSum, labels=continents)
 
 @app.route('/')
 def index():
-    Generator()
-    return render_template('chart.html', values=Generator.populationSum, labels=Generator.continents)
+    gen = Generator()
+    return render_template('chart.html', values=gen.populationSum, labels=gen.continents)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8080))
