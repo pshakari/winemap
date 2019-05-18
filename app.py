@@ -22,12 +22,13 @@ class Generator:
 
     def make(self, server, user, dbname, password):
         spark_session = SparkSession.builder.appName('winemap').getOrCreate()
-      	
+        populationSum=[200,300,400]
+        continents=['Europe','Africa','Asia']
+      	return render_template('chart.html', values=populationSum, labels=continents)
 
 @app.route('/')
 def index():
     Generator()
-    return 'haeooo'
 
 
 if __name__ == '__main__':
