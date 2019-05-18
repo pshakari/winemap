@@ -11,10 +11,11 @@ from flask import render_template
 
 
 app = Flask(__name__)
-populationSum = []
-continents = []
 
 class Generator:
+    populationSum = []
+    continents = []
+    
     def __init__(self):
         server = environ.get("SERVER")
         user = environ.get("USER")
@@ -32,9 +33,7 @@ class Generator:
 @app.route('/')
 def index():
     Generator()
-    populationSum=[200,300,400]
-    continents=['Europe','Africa','Asia']
-    return render_template('chart.html', values=populationSum, labels=continents)
+    return render_template('chart.html', values=Generator.populationSum, labels=Generator.continents)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8080))
