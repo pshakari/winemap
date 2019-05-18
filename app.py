@@ -2,9 +2,10 @@ import os
 from os import environ
 import shutil
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import mean
-from plotly.offline import plot
-import argparse
+from pyspark.sql.functions import *
+#from plotly.offline import plot
+#import matplotlib.pyplot as plt
+#import argparse
 from flask import Markup
 from flask import Flask
 from flask import render_template
