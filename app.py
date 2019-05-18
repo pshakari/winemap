@@ -11,8 +11,10 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
-class WineMapGenerator:
-
+class Generator:
+    populationSum = []
+    continents = []
+    
     def __init__(self):
         server = environ.get("SERVER")
         user = environ.get("USER")
@@ -22,23 +24,13 @@ class WineMapGenerator:
                   user, dbname, password)
 
     def make(self, server, user, dbname, password):
-        #spark_session = SparkSession.builder.appName('winemap').getOrCreate()
+        spark_session = SparkSession.builder.appName('winemap').getOrCreate()
       	
-
-
-def make_template():
-    # make the templates dir
-    new_path = '/opt/app-root/src/templates'
-    if not os.path.exists(new_path):
-        os.makedirs(new_path)
-        # move the file to the templates dir
-        shutil.move('/opt/app-root/src/map.html', new_path)
-    return render_template("map.html", title='Maps')
 
 @app.route('/')
 def index():
-    #spark_session = SparkSession.builder.appName('winemap').getOrCreate()
-    return 'halllooo'
+    gen = Generator()
+    return render_template('chart.html', values=gen.populationSum, labels=gen.continents)
 
 
 if __name__ == '__main__':
