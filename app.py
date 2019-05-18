@@ -37,7 +37,7 @@ def make_template():
 
 @app.route('/')
 def index():
-    spark_session = SparkSession.builder.appName('winemap').getOrCreate()
+    #spark_session = SparkSession.builder.appName('winemap').getOrCreate()
     return 'halllooo'
 
 
