@@ -12,7 +12,7 @@ This is the app that calls a postgresql db to show a map of wine reviews using t
 ```sh
 oc new-app --template=oshinko-python-spark-build-dc \
   -p APPLICATION_NAME=winemap \
-  -p GIT_URI=https://github.com/radanalyticsio/winemap.git \
+  -p GIT_URI=https://github.com/pshakari/winemap.git \
   -p SPARK_OPTIONS='--packages org.postgresql:postgresql:42.1.4' \
   -p OSHINKO_CLUSTER_NAME=<oshinko_cluster_name> \
   -e SERVER=postgresql \
