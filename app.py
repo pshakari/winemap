@@ -11,7 +11,8 @@ from flask import render_template
 
 
 app = Flask(__name__)
-
+populationSum = []
+continents = []
 
 class Generator:
     def __init__(self):
@@ -26,12 +27,12 @@ class Generator:
         spark_session = SparkSession.builder.appName('winemap').getOrCreate()
         populationSum=[200,300,400]
         continents=['Europe','Africa','Asia']
-      	return render_template('chart.html', values=populationSum, labels=continents)
+      	//return render_template('chart.html', values=populationSum, labels=continents)
 
 @app.route('/')
 def index():
     Generator()
-
+    return render_template('chart.html', values=populationSum, labels=continents)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8080))
