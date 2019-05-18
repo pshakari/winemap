@@ -26,8 +26,10 @@ class Generator:
 
     def make(self, server, user, dbname, password):
         spark_session = SparkSession.builder.appName('winemap').getOrCreate()
-        self.populationSum=[200,300,400]
-        self.continents=['Europe','Africa','Asia']
+        df = spark_session.read.format("jdbc").options(url=url,dbtable="population",driver="org.postgresql.Driver").load()
+        table = df.select('continent', 'sum(population) population').groupBy('continent').orderBy('population', ascending=False)
+        self.populationSum=table.select('population').collect()
+        self.continents=table.select('continent').collect()
       	#return render_template('chart.html', values=populationSum, labels=continents)
 
 @app.route('/')
