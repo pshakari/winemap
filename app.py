@@ -22,7 +22,7 @@ class WineMapGenerator:
                   user, dbname, password)
 
     def make(self, server, user, dbname, password):
-        spark_session = SparkSession.builder.appName('winemap').getOrCreate()
+        #spark_session = SparkSession.builder.appName('winemap').getOrCreate()
       	
 
 
@@ -37,7 +37,7 @@ def make_template():
 
 @app.route('/')
 def index():
-    WineMapGenerator()
+    spark_session = SparkSession.builder.appName('winemap').getOrCreate()
     return 'halllooo'
 
 
