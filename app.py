@@ -12,9 +12,6 @@ app = Flask(__name__)
 
 
 class Generator:
-    populationSum = []
-    continents = []
-    
     def __init__(self):
         server = environ.get("SERVER")
         user = environ.get("USER")
