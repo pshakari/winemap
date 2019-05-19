@@ -1,11 +1,7 @@
 import os
 from os import environ
-import shutil
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
-#from plotly.offline import plot
-#import matplotlib.pyplot as plt
-#import argparse
 from flask import Markup
 from flask import Flask
 from flask import render_template
@@ -30,9 +26,8 @@ class Generator:
         url = "jdbc:postgresql://{0}/{1}?user={2}&password={3}".format(server, dbname, user, password)
         df = spark_session.read.format("jdbc").options(url=url,dbtable="population",driver="org.postgresql.Driver").load()
         table = df.groupBy('continent').sum('population').withColumnRenamed("sum(Population)", "Population").orderBy('population', ascending=False)
-        self.populationSum=list(table.select('Continent').toPandas()['Continent'])
-        self.continents=list(table.select('Population').toPandas()['Population'])
-      	#return render_template('chart.html', values=populationSum, labels=continents)
+        self.populationSum=list(table.select('Population').toPandas()['Population'])
+        self.continents=list(table.select('Continent').toPandas()['Continent'])
 
 @app.route('/')
 def index():
