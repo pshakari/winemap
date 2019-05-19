@@ -24,7 +24,7 @@ class Generator:
         spark_session = SparkSession.builder.appName('winemap').getOrCreate()
         url = "jdbc:postgresql://{0}/{1}?user={2}&password={3}".format(server, dbname, user, password)
         df = spark_session.read.format("jdbc").options(url=url,dbtable="population",driver="org.postgresql.Driver").load()
-        table = df.groupBy('continent').sum('population').withColumnRenamed("sum(Population)", "Population").orderBy('population', ascending=False)
+        table = df.groupBy('Continent').sum('Population').withColumnRenamed("sum(Population)", "Population").orderBy('Population', ascending=False)
         self.populationSum=[int(row['Population']) for row in table.collect()]
         self.continents=[str(row['Continent']) for row in table.collect()]
 
