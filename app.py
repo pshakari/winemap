@@ -5,7 +5,6 @@ from pyspark.sql.functions import *
 from flask import Markup
 from flask import Flask
 from flask import render_template
-import pandas as pd
 
 app = Flask(__name__)
 
@@ -26,8 +25,8 @@ class Generator:
         url = "jdbc:postgresql://{0}/{1}?user={2}&password={3}".format(server, dbname, user, password)
         df = spark_session.read.format("jdbc").options(url=url,dbtable="population",driver="org.postgresql.Driver").load()
         table = df.groupBy('continent').sum('population').withColumnRenamed("sum(Population)", "Population").orderBy('population', ascending=False)
-        self.populationSum=list(table.select('Population').toPandas()['Population'])
-        self.continents=list(table.select('Continent').toPandas()['Continent'])
+        self.populationSum=[list(row) for row in table.select('Population').collect()]
+        self.continents=[list(row) for row in table.select('Continent').collect()]
 
 @app.route('/')
 def index():
