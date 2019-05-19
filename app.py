@@ -26,7 +26,7 @@ class Generator:
         df = spark_session.read.format("jdbc").options(url=url,dbtable="population",driver="org.postgresql.Driver").load()
         table = df.groupBy('continent').sum('population').withColumnRenamed("sum(Population)", "Population").orderBy('population', ascending=False)
         self.populationSum=[int(row['Population']) for row in table.collect()]
-        self.continents=[string(row['Continent']) for row in table.collect()]
+        self.continents=[int(row['Continent']) for row in table.collect()]
 
 @app.route('/')
 def index():
